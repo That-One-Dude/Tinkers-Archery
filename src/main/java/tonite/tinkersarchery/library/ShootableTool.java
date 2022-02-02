@@ -220,6 +220,9 @@ public abstract class ShootableTool extends ModifiableItem {
         arrows.add(new IBowModifier.ArrowData(Quaternion.ONE, power, accuracy));
 
         for(int i = 0; i < Math.min(modifierList.size(), arrowCounts.length); i++) {
+            if (i >= modifierList.size() || i >= arrowCounts.length) { // This check seemingly shouldn't be needed but someone had a crash so it's here just in case.
+                break;
+            }
             ModifierEntry entry = modifierList.get(i);
             ((IBowModifier) entry.getModifier()).onReleaseBow(tool, entry.getLevel(), drawPortion, power, accuracy, arrows, arrowCounts[i], world, shooter);
         }
